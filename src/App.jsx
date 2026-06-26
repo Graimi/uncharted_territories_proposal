@@ -656,17 +656,6 @@ function ReadingOptimizerDemo() {
   );
 }
 
-const cgNodeBase = {
-  position: "absolute",
-  borderRadius: "50%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  textAlign: "center",
-  background: "linear-gradient(165deg,#f6efdd,#e9ddc2)",
-  boxShadow: "0 14px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -8px 18px rgba(140,120,80,.12)",
-};
-
 function ContentGraphDemo() {
   return (
     <div className="overflow-hidden border border-line bg-card shadow-cartouche">
@@ -677,161 +666,11 @@ function ContentGraphDemo() {
         </h3>
       </div>
       <div className="grid min-h-[420px] lg:grid-cols-[1fr_180px]">
-        {/* Graph canvas */}
-        <div
-          className="relative min-h-[390px] overflow-hidden"
-          style={{
-            background: "radial-gradient(120% 100% at 50% 38%,#2d626d 0%,#234e58 55%,#1d434c 100%)",
-          }}
-        >
-          {/* Grid overlay */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px)",
-              backgroundSize: "42px 42px",
-              maskImage: "radial-gradient(130% 110% at 50% 42%,#000 55%,transparent 100%)",
-              WebkitMaskImage: "radial-gradient(130% 110% at 50% 42%,#000 55%,transparent 100%)",
-            }}
-          />
-          {/* Vignette */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, boxShadow: "inset 0 0 180px rgba(0,0,0,.30)", pointerEvents: "none" }} />
-
-          {/* Connector SVG */}
-          <svg viewBox="0 0 960 680" preserveAspectRatio="xMidYMid meet" className="absolute inset-0 h-full w-full" aria-hidden="true">
-            <g
-              fill="none"
-              stroke="#ece2cb"
-              strokeOpacity=".34"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeDasharray="2 7"
-              style={{ animation: "cgFlow 22s linear infinite" }}
-            >
-              <line x1="411.4" y1="181.2" x2="268.5" y2="266.9" />
-              <line x1="548.6" y1="181.2" x2="691.5" y2="266.9" />
-              <line x1="261.3" y1="353.1" x2="361.5" y2="438.8" />
-              <line x1="698.7" y1="353.1" x2="598.5" y2="438.8" />
-              <line x1="446" y1="470" x2="514" y2="470" />
-              <line x1="425.9" y1="509.1" x2="449.8" y2="542.7" />
-              <line x1="534.1" y1="509.1" x2="510.2" y2="542.7" />
-            </g>
-          </svg>
-
-          {/* Root node */}
-          <div
-            style={{
-              ...cgNodeBase,
-              left: "41.7%",
-              top: "8.8%",
-              width: 160,
-              height: 160,
-            }}
-          >
-            <span style={{ color: "#3a3224", fontSize: 15, fontWeight: 600, letterSpacing: "1.6px", textTransform: "uppercase", lineHeight: 1.3 }}>
-              AI in 2026
-            </span>
-          </div>
-
-          {/* Left branch */}
-          <div
-            style={{
-              ...cgNodeBase,
-              left: "13.6%",
-              top: "34%",
-              width: 148,
-              height: 148,
-              boxShadow: "0 12px 26px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -8px 18px rgba(140,120,80,.12)",
-              padding: "0 18px",
-            }}
-          >
-            <span style={{ color: "#3a3224", fontSize: 13.5, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", lineHeight: 1.4 }}>
-              Peak oil is coming
-            </span>
-          </div>
-
-          {/* Right branch */}
-          <div
-            style={{
-              ...cgNodeBase,
-              left: "70.9%",
-              top: "34%",
-              width: 148,
-              height: 148,
-              boxShadow: "0 12px 26px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -8px 18px rgba(140,120,80,.12)",
-              padding: "0 18px",
-            }}
-          >
-            <span style={{ color: "#3a3224", fontSize: 13.5, fontWeight: 600, letterSpacing: "1.4px", textTransform: "uppercase", lineHeight: 1.4 }}>
-              Can we build AI in space?
-            </span>
-          </div>
-
-          {/* Category tag: Energy */}
-          <div
-            style={{
-              position: "absolute",
-              left: "36.5%",
-              top: "62.1%",
-              width: 96,
-              height: 96,
-              borderRadius: "50%",
-              border: "1.5px solid rgba(236,226,203,.55)",
-              background: "rgba(236,226,203,.04)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            <span style={{ color: "#ece2cb", fontSize: 11.5, fontWeight: 500, letterSpacing: "1.6px", textTransform: "uppercase" }}>Energy</span>
-          </div>
-
-          {/* Category tag: Compute */}
-          <div
-            style={{
-              position: "absolute",
-              left: "53.5%",
-              top: "62.1%",
-              width: 96,
-              height: 96,
-              borderRadius: "50%",
-              border: "1.5px solid rgba(236,226,203,.55)",
-              background: "rgba(236,226,203,.04)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            <span style={{ color: "#ece2cb", fontSize: 11.5, fontWeight: 500, letterSpacing: "1.6px", textTransform: "uppercase" }}>Compute</span>
-          </div>
-
-          {/* Category tag: Geography */}
-          <div
-            style={{
-              position: "absolute",
-              left: "44.6%",
-              top: "78.4%",
-              width: 104,
-              height: 104,
-              borderRadius: "50%",
-              border: "1.5px solid rgba(236,226,203,.55)",
-              background: "rgba(236,226,203,.04)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            <span style={{ color: "#ece2cb", fontSize: 11.5, fontWeight: 500, letterSpacing: "1.6px", textTransform: "uppercase" }}>Geography</span>
-          </div>
-        </div>
-
-        {/* Sidebar */}
+        <img
+          src="/uploads/concept-graph.png"
+          alt="Content graph: AI in 2026 connecting to Peak Oil Is Coming and Can We Build AI in Space?, with topic tags Energy, Compute, Geography."
+          className="h-full w-full object-cover"
+        />
         <div className="border-t border-line bg-paper p-4 lg:border-l lg:border-t-0">
           <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">Graph actions</p>
           <div className="mt-4 space-y-3">
