@@ -97,6 +97,29 @@ body {
   position: relative;
 }
 
+/* Scroll-intro dragon: subtle wing-beat + glide so a single sprite reads as flying. */
+@keyframes dragon-fly {
+  0%,
+  100% {
+    transform: scaleY(1) translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: scaleY(0.93) translateY(-1.4%) rotate(-1.2deg);
+  }
+}
+
+.dragon-fly {
+  animation: dragon-fly 1.6s ease-in-out infinite;
+  transform-origin: 58% 46%;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dragon-fly {
+    animation: none;
+  }
+}
+
 .mission-hub {
   box-shadow:
     0 0 0 8px rgba(191, 143, 58, 0.1),

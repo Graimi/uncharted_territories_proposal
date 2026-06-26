@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import worldMap from "../world-map.min.svg?raw";
+import ScrollStage from "./ScrollStage";
 import {
   archiveArticles,
   countryNames,
@@ -1009,6 +1010,7 @@ export default function App() {
 
   return (
     <div style={cssVars} className="min-h-screen bg-paper font-serif text-ink antialiased">
+      <ScrollStage />
       <Nav />
       <Hero />
       <FitSection />
