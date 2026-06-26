@@ -2,3 +2,8 @@ node_modules/
 dist/
 .vite/
 .DS_Store
+
+# Source-art staging; only the served copies in public/uploads are committed
+/uploads/
+/screenshots/
+scripts/_*.png
