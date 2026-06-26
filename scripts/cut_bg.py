@@ -9,6 +9,8 @@ dark engraving outlines and never reached from the edge.
 """
 import sys
 import numpy as np
+import glob
+
 from PIL import Image, ImageFilter
 from scipy import ndimage
 
@@ -16,8 +18,9 @@ from scipy import ndimage
 BRIGHT_MIN = 216   # min channel must be at least this
 NEUTRAL_MAX = 18   # max-min channel spread must be at most this
 
+# Drop any source PNG that still has a baked-in background here, then run this
+# script: it writes a background-free .webp sibling (the served format).
 SRC_DIR = "public/uploads/scroll"
-TARGETS = ["world", "ship", "sun", "dragon-1", "dragon-2", "dragon-3", "dragon-4"]
 
 
 def cut(path):
@@ -41,12 +44,16 @@ def cut(path):
     a_img = Image.fromarray(alpha, "L").filter(ImageFilter.GaussianBlur(0.8))
 
     out = Image.merge("RGBA", (*im.split(), a_img))
-    out.save(path)
+    webp = path.rsplit(".", 1)[0] + ".webp"
+    out.save(webp, "WEBP", quality=90, method=6, exact=True)  # served format
     cleared = int(bg.sum())
     pct = 100 * cleared / bg.size
-    print(f"{path.split('/')[-1]:14} cleared {pct:5.1f}% of pixels")
+    print(f"{path.split('/')[-1]:14} cleared {pct:5.1f}% -> {webp.split('/')[-1]}")
 
 
 if __name__ == "__main__":
-    for t in TARGETS:
-        cut(f"{SRC_DIR}/{t}.png")
+    pngs = sorted(glob.glob(f"{SRC_DIR}/*.png"))
+    if not pngs:
+        print(f"No source PNGs in {SRC_DIR}/ — nothing to cut.")
+    for path in pngs:
+        cut(path.replace("\\", "/"))

@@ -9,10 +9,10 @@ import { useEffect, useRef, useState } from "react";
 //   0.90-1.00  all layers composed like the logo, title resolves
 
 const ASSET = {
-  world: "/uploads/scroll/world.png",
-  dragon: "/uploads/scroll/dragon-4.png", // long dynamic flyer reads best in orbit
-  ship: "/uploads/scroll/ship.png",
-  sun: "/uploads/scroll/sun.png",
+  world: "/uploads/scroll/world.webp",
+  dragon: "/uploads/scroll/dragon-4.webp", // long dynamic flyer reads best in orbit
+  ship: "/uploads/scroll/ship.webp",
+  sun: "/uploads/scroll/sun.webp",
 };
 
 // Inline SVG placeholders (theme palette) so the scene is demonstrable before

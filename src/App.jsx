@@ -595,7 +595,7 @@ function MissionControl() {
       </div>
       <div className="mx-auto max-w-[1720px] mt-10 px-0">
         <img
-          src="/uploads/mission-control.png"
+          src="/uploads/mission-control.webp"
           alt="Mission Control media operating system: one research idea branching into essay, fact-checking, maps, video, social clips, courses, events, products, and reader feedback."
           className="block h-auto w-full"
         />
@@ -668,7 +668,7 @@ function ContentGraphDemo() {
       </div>
       <div className="grid min-h-[420px] lg:grid-cols-[1fr_180px]">
         <img
-          src="/uploads/concept-graph.png"
+          src="/uploads/concept-graph.webp"
           alt="Content graph: AI in 2026 connecting to Peak Oil Is Coming and Can We Build AI in Space?, with topic tags Energy, Compute, Geography."
           className="h-full w-full object-cover"
         />
