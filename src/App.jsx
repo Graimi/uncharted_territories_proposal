@@ -7,15 +7,12 @@ import {
   Factory,
   FileSearch,
   Film,
-  Gauge,
-  GitBranch,
   Globe2,
   Layers3,
   Lightbulb,
   Map,
   MessageSquare,
   MousePointer2,
-  Network,
   Pause,
   Play,
   Plus,
@@ -34,6 +31,9 @@ import {
   eras,
   essays,
   featuredConcepts,
+  missionAgents,
+  missionConcept,
+  missionOutputs,
   newIdeas,
   proposalGroups,
   readingSegments,
@@ -66,6 +66,7 @@ function Nav() {
           {[
             ["Fit", "#fit"],
             ["Atlas", "#atlas"],
+            ["Mission", "#mission"],
             ["Featured", "#featured"],
             ["Ideas", "#ideas"],
             ["Roadmap", "#roadmap"],
@@ -99,11 +100,11 @@ function Hero() {
         <div className="relative z-10 max-w-4xl">
           <Eyebrow>Product design + software development + growth systems</Eyebrow>
           <h1 className="mt-5 max-w-5xl font-serif text-[clamp(44px,7vw,96px)] font-medium leading-[0.96] text-ink">
-            Interactive tools for a more truthful internet.
+            The product layer for a 21st-century media company.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-muted sm:text-xl">
             A product-led proposal for Uncharted Territories: fast AI-assisted software, sharp editorial interfaces,
-            and content systems that can become growth engines.
+            and agentic systems that turn ideas into essays, videos, products, experiences, and tools.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#atlas" className="btn-primary">
@@ -577,6 +578,91 @@ function Atlas() {
   );
 }
 
+function MissionControl() {
+  const laneClass = {
+    input: "border-gold bg-paper text-ink",
+    core: "border-rust bg-card text-ink",
+    output: "border-teal bg-teal text-paper",
+  };
+
+  return (
+    <section id="mission" className="relative overflow-hidden border-b border-line bg-ink text-paper">
+      <div className="absolute inset-0 graph-grid opacity-20" aria-hidden="true" />
+      <div className="absolute inset-x-0 top-0 h-px bg-paper/20" aria-hidden="true" />
+      <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12 lg:py-24">
+        <div className="relative z-10">
+          <Eyebrow className="text-gold">New flagship idea</Eyebrow>
+          <h2 className="mt-4 max-w-2xl font-serif text-5xl font-medium leading-[0.95] sm:text-7xl">
+            {missionConcept.title}
+          </h2>
+          <p className="mt-5 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-paper/50">
+            {missionConcept.role} · {missionConcept.article}
+          </p>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-paper/72">{missionConcept.problem}</p>
+          <div className="mt-8 grid gap-px border border-paper/20 bg-paper/20 sm:grid-cols-2">
+            {[
+              ["What it does", missionConcept.demo],
+              ["Why it matters", missionConcept.impact],
+            ].map(([label, body]) => (
+              <div key={label} className="bg-ink p-5">
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-gold">{label}</p>
+                <p className="mt-3 text-[15px] leading-7 text-paper/72">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative z-10 overflow-hidden border border-paper/20 bg-paper/8 p-4 shadow-cartouche backdrop-blur">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-paper/20 pb-4">
+            <div>
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-gold">Agent workflow</p>
+              <h3 className="mt-2 font-serif text-3xl font-semibold leading-none">From one idea to an institution-grade output system</h3>
+            </div>
+            <div className="flex items-center gap-2 border border-paper/20 bg-ink px-3 py-2 font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-paper/70">
+              <Zap className="h-4 w-4 text-gold" />
+              Auto-orchestrated
+            </div>
+          </div>
+
+          <div className="relative grid gap-3 lg:grid-cols-3">
+            <div className="absolute left-[16.5%] right-[16.5%] top-1/2 hidden h-px bg-paper/20 lg:block" aria-hidden="true" />
+            {missionAgents.map((agent, index) => (
+              <article
+                key={agent.label}
+                className={cx(
+                  "mission-card relative z-10 min-h-40 border p-4 shadow-cartouche",
+                  laneClass[agent.lane],
+                )}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] opacity-70">{agent.label}</p>
+                  <span className="grid h-7 w-7 place-items-center border border-current/30 font-sans text-[10px] font-bold">
+                    {index + 1}
+                  </span>
+                </div>
+                <h4 className="mt-8 font-serif text-2xl font-semibold leading-none">{agent.title}</h4>
+                <p className="mt-3 text-sm leading-6 opacity-75">{agent.detail}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-4 border border-paper/20 bg-ink p-4">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-paper/50">Outputs created from the same source idea</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {missionOutputs.map((output) => (
+                <span key={output} className="inline-flex items-center gap-2 border border-paper/20 bg-paper/10 px-3 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-paper/80">
+                  <Plus className="h-3.5 w-3.5 text-gold" />
+                  {output}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ReadingOptimizerDemo() {
   const toneClass = {
     strong: "bg-teal text-paper",
@@ -632,42 +718,63 @@ function ReadingOptimizerDemo() {
 
 function ContentGraphDemo() {
   const nodes = [
-    { label: "AI in 2026", x: "50%", y: "17%", size: "h-24 w-24", kind: "article" },
-    { label: "Can We Build AI in Space?", x: "74%", y: "42%", size: "h-28 w-28", kind: "article" },
-    { label: "Peak Oil Is Coming", x: "28%", y: "44%", size: "h-24 w-24", kind: "article" },
-    { label: "Energy", x: "45%", y: "62%", size: "h-16 w-16", kind: "topic" },
-    { label: "Compute", x: "63%", y: "64%", size: "h-16 w-16", kind: "topic" },
-    { label: "Geography", x: "37%", y: "78%", size: "h-16 w-16", kind: "topic" },
+    { label: "AI in 2026", x: "50%", y: "22%", size: "h-20 w-20", kind: "article" },
+    { label: "Can We Build AI in Space?", x: "78%", y: "46%", size: "h-24 w-24", kind: "article" },
+    { label: "Peak Oil Is Coming", x: "24%", y: "46%", size: "h-20 w-20", kind: "article" },
+    { label: "Energy", x: "42%", y: "68%", size: "h-14 w-14", kind: "topic" },
+    { label: "Compute", x: "61%", y: "68%", size: "h-14 w-14", kind: "topic" },
+    { label: "Geography", x: "50%", y: "84%", size: "h-14 w-14", kind: "topic" },
   ];
 
   return (
-    <div className="relative min-h-[430px] overflow-hidden border border-line bg-teal p-5 text-paper shadow-cartouche">
-      <div className="absolute inset-0 graph-grid opacity-40" />
-      <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
-        <line x1="50%" y1="17%" x2="74%" y2="42%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
-        <line x1="50%" y1="17%" x2="28%" y2="44%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
-        <line x1="74%" y1="42%" x2="63%" y2="64%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
-        <line x1="28%" y1="44%" x2="45%" y2="62%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
-        <line x1="45%" y1="62%" x2="37%" y2="78%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
-        <line x1="63%" y1="64%" x2="37%" y2="78%" stroke="#f3ecda" strokeOpacity="0.25" />
-      </svg>
-      <div className="relative z-10">
-        <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-paper/70">Archive system map</p>
-        <h3 className="mt-2 max-w-md font-serif text-3xl font-semibold leading-none">A discovery engine for UT’s hidden structure</h3>
+    <div className="overflow-hidden border border-line bg-card shadow-cartouche">
+      <div className="border-b border-line p-5">
+        <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">Archive system map</p>
+        <h3 className="mt-2 max-w-lg font-serif text-3xl font-semibold leading-none text-ink">
+          A discovery engine for UT's hidden structure
+        </h3>
       </div>
-      {nodes.map((node) => (
-        <div
-          key={node.label}
-          className={cx(
-            "graph-node absolute z-10 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border text-center font-sans text-[10px] font-bold uppercase leading-4 tracking-[0.08em] shadow-cartouche",
-            node.size,
-            node.kind === "article" ? "border-paper/60 bg-paper text-ink" : "border-paper/40 bg-teal text-paper",
-          )}
-          style={{ left: node.x, top: node.y }}
-        >
-          {node.label}
+      <div className="grid min-h-[420px] lg:grid-cols-[1fr_180px]">
+        <div className="relative min-h-[390px] overflow-hidden bg-teal text-paper">
+          <div className="absolute inset-0 graph-grid opacity-40" />
+          <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
+            <line x1="50%" y1="22%" x2="78%" y2="46%" stroke="#f3ecda" strokeOpacity="0.4" strokeDasharray="5 6" />
+            <line x1="50%" y1="22%" x2="24%" y2="46%" stroke="#f3ecda" strokeOpacity="0.4" strokeDasharray="5 6" />
+            <line x1="78%" y1="46%" x2="61%" y2="68%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+            <line x1="24%" y1="46%" x2="42%" y2="68%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+            <line x1="42%" y1="68%" x2="50%" y2="84%" stroke="#f3ecda" strokeOpacity="0.3" />
+            <line x1="61%" y1="68%" x2="50%" y2="84%" stroke="#f3ecda" strokeOpacity="0.3" />
+          </svg>
+          {nodes.map((node) => (
+            <div
+              key={node.label}
+              className={cx(
+                "graph-node absolute z-10 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border px-2 text-center font-sans text-[9px] font-bold uppercase leading-3 tracking-[0.06em] shadow-cartouche",
+                node.size,
+                node.kind === "article" ? "border-paper/70 bg-paper text-ink" : "border-paper/45 bg-teal text-paper",
+              )}
+              style={{ left: node.x, top: node.y }}
+            >
+              {node.label}
+            </div>
+          ))}
         </div>
-      ))}
+        <div className="border-t border-line bg-paper p-4 lg:border-l lg:border-t-0">
+          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">Graph actions</p>
+          <div className="mt-4 space-y-3">
+            {[
+              ["Open briefing", "Generate a reader-specific path."],
+              ["Find bridge", "Connect energy, AI, and geography."],
+              ["Create package", "Turn cluster into video + posts."],
+            ].map(([title, body]) => (
+              <div key={title} className="border border-line bg-card p-3">
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-rust">{title}</p>
+                <p className="mt-2 text-sm leading-5 text-muted">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -994,6 +1101,7 @@ export default function App() {
       <Hero />
       <FitSection />
       <Atlas />
+      <MissionControl />
       <FeaturedConcepts />
       <ProposalLibrary />
       <ArchiveSource />

@@ -59,6 +59,18 @@ body {
   animation-delay: 1.4s;
 }
 
+.mission-card {
+  animation: missionFloat 7s ease-in-out infinite;
+}
+
+.mission-card:nth-child(2n) {
+  animation-delay: 0.7s;
+}
+
+.mission-card:nth-child(3n) {
+  animation-delay: 1.2s;
+}
+
 .scanline {
   animation: scanline 4.4s ease-in-out infinite;
   background: linear-gradient(90deg, transparent, rgba(180, 84, 42, 0.38), transparent);
@@ -93,6 +105,16 @@ body {
   100% {
     opacity: 0;
     transform: translateY(230px);
+  }
+}
+
+@keyframes missionFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }
 

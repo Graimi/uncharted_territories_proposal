@@ -269,6 +269,19 @@ export const archiveArticles = [
   },
 ];
 
+export const missionConcept = {
+  title: "UT Mission Control",
+  role: "Agentic Media OS",
+  article: "The Media Company of the 21st Century",
+  problem:
+    "UT does not want to be just a newsletter. It wants to become an institution spanning essays, videos, products, experiences, education, and decision tools.",
+  demo:
+    "A visual agent workflow turns one research brief into an article, social clips, a video script, a map, a course module, a product concept, and a reader feedback loop.",
+  build:
+    "Orchestrate specialized agents for research, editorial structure, fact-checking, visual briefing, video scripting, social adaptation, product ideation, and analytics.",
+  impact: "Shows the biggest version of the role: not one tool, but the operating system for a 21st-century media company.",
+};
+
 export const featuredConcepts = [
   {
     title: "Reading Time Optimizer",
@@ -300,6 +313,7 @@ export const proposalGroups = [
   {
     type: "Product tools",
     items: [
+      "UT Mission Control",
       "Live fact-checker",
       "Personalized briefing",
       "UT semantic article search",
@@ -354,6 +368,57 @@ export const newIdeas = [
     pitch:
       "A compact interactive model where readers tune forces like energy, AI, geography, fertility, and institutions to see which futures become plausible.",
   },
+];
+
+export const missionAgents = [
+  {
+    label: "Research brief",
+    title: "One UT idea",
+    detail: "Petrostates after oil, AI in space, Dubai, peak oil, or a new geopolitical thesis.",
+    lane: "input",
+  },
+  {
+    label: "Editorial agent",
+    title: "Essay architecture",
+    detail: "Outline, argument map, section rhythm, claim ledger, and reading friction analysis.",
+    lane: "core",
+  },
+  {
+    label: "Truth agent",
+    title: "Evidence swarm",
+    detail: "Claims, citations, counterarguments, confidence levels, and unresolved questions.",
+    lane: "core",
+  },
+  {
+    label: "Visual agent",
+    title: "Maps and explainers",
+    detail: "Cartography prompts, diagrams, data visuals, cover art, and brand-consistent graphics.",
+    lane: "core",
+  },
+  {
+    label: "Growth agent",
+    title: "Distribution machine",
+    detail: "Threads, LinkedIn posts, shorts hooks, YouTube descriptions, podcast scripts, and A/B variants.",
+    lane: "output",
+  },
+  {
+    label: "Institution agent",
+    title: "Beyond content",
+    detail: "Salons, site visits, courses, kits, maps, shop concepts, and community coordination.",
+    lane: "output",
+  },
+];
+
+export const missionOutputs = [
+  "Long-form essay",
+  "YouTube script",
+  "Shorts package",
+  "Interactive map",
+  "Fact-check ledger",
+  "Course module",
+  "Event concept",
+  "Physical product brief",
+  "Reader feedback loop",
 ];
 
 export const readingSegments = [
