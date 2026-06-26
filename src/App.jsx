@@ -577,8 +577,22 @@ function Atlas() {
 function MissionControl() {
   return (
     <section id="mission" className="border-b border-line bg-ink">
-      <div className="mx-auto max-w-[1720px] px-0 py-0">
-        <h2 className="sr-only">{missionConcept.title}</h2>
+      <div className="mx-auto max-w-[1440px] px-5 pt-14 sm:px-8 sm:pt-18 lg:px-12 lg:pt-20">
+        <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+          <div>
+            <Eyebrow className="text-gold">Agentic media OS</Eyebrow>
+            <h2 className="mt-4 font-serif text-4xl font-medium leading-tight text-paper sm:text-5xl">
+              One idea. Every format. Automatically.
+            </h2>
+          </div>
+          <p className="max-w-2xl text-lg leading-8 text-paper/70">
+            A research idea enters the system once. Agents branch it into essay, fact-check, interactive map, video
+            script, social clips, course outline, live event, product brief, and reader feedback loop — each format
+            native to its channel, each traceable back to the source.
+          </p>
+        </div>
+      </div>
+      <div className="mx-auto max-w-[1720px] mt-10 px-0">
         <img
           src="/uploads/mission-control.png"
           alt="Mission Control media operating system: one research idea branching into essay, fact-checking, maps, video, social clips, courses, events, products, and reader feedback."
