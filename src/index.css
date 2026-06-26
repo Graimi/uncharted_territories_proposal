@@ -195,6 +195,12 @@ body {
   }
 }
 
+@keyframes cgFlow {
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+
 @keyframes missionFloat {
   0%,
   100% {
