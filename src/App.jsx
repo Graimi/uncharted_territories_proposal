@@ -15,13 +15,11 @@ import {
   MousePointer2,
   Pause,
   Play,
-  Plus,
   Search,
   Share2,
   Sparkles,
   Star,
   Wand2,
-  Zap,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import worldMap from "../world-map.min.svg?raw";
@@ -32,7 +30,6 @@ import {
   essays,
   featuredConcepts,
   missionConcept,
-  missionOutputs,
   newIdeas,
   proposalGroups,
   readingSegments,
@@ -578,124 +575,15 @@ function Atlas() {
 }
 
 function MissionControl() {
-  const workflowRows = [
-    { lane: "Truth", output: "Long-form essay", icon: FileSearch },
-    { lane: "Truth", output: "Fact-check ledger", icon: CheckCircle2 },
-    { lane: "Visuals", output: "Interactive map", icon: Map },
-    { lane: "Visuals", output: "Video script", icon: Film },
-    { lane: "Growth", output: "Social clips", icon: Share2 },
-    { lane: "Education", output: "Course module", icon: Layers3 },
-    { lane: "Products", output: "Physical product brief", icon: Sparkles },
-    { lane: "Feedback", output: "Reader feedback loop", icon: MessageSquare },
-  ];
-
   return (
-    <section id="mission" className="mission-section relative overflow-hidden border-b border-line bg-ink text-paper">
-      <div className="absolute inset-0 mission-parchment opacity-95" aria-hidden="true" />
-      <div className="absolute inset-0 graph-grid opacity-20" aria-hidden="true" />
-      <div className="absolute left-0 top-0 hidden h-full w-[34%] bg-ink/96 lg:block" aria-hidden="true" />
-      <div className="absolute left-[27%] top-0 hidden h-full w-32 -skew-x-12 bg-ink/96 lg:block" aria-hidden="true" />
-      <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.54fr_1.46fr] lg:px-12 lg:py-24">
-        <div className="relative z-10">
-          <div className="mb-10 flex items-center gap-4">
-            <div className="compass-mark grid h-16 w-16 place-items-center rounded-full border border-gold/70 text-gold">
-              <Sparkles className="h-7 w-7" />
-            </div>
-            <div>
-              <p className="font-sans text-[11px] font-bold uppercase tracking-[0.24em] text-paper/70">Mission Control</p>
-              <p className="mt-1 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Media Operating System</p>
-            </div>
-          </div>
-          <Eyebrow className="text-gold">New flagship idea</Eyebrow>
-          <h2 className="mt-4 max-w-[370px] font-serif text-[clamp(44px,5.2vw,70px)] font-medium leading-[0.95]">
-            Intelligence coordinated. Impact amplified.
-          </h2>
-          <p className="mt-5 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-paper/50">
-            {missionConcept.role} · {missionConcept.article}
-          </p>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-paper/72">{missionConcept.problem}</p>
-          <div className="mt-8 grid gap-px border border-paper/20 bg-paper/20 sm:grid-cols-2">
-            {[
-              ["What it does", missionConcept.demo],
-              ["Why it matters", missionConcept.impact],
-            ].map(([label, body]) => (
-              <div key={label} className="bg-ink p-5">
-                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-gold">{label}</p>
-                <p className="mt-3 text-[15px] leading-7 text-paper/72">{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mission-board relative z-10 overflow-hidden border border-ink/30 bg-paper/80 p-4 text-ink shadow-cartouche backdrop-blur">
-          <div className="absolute inset-0 paper-grain opacity-60" aria-hidden="true" />
-          <div className="relative z-10 grid min-h-[590px] gap-4 lg:grid-cols-[220px_180px_minmax(340px,1fr)]">
-            <div className="research-card self-center border border-gold/60 bg-ink p-4 text-paper shadow-cartouche">
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-gold">Research</p>
-              <div className="mt-7 grid place-items-center">
-                <div className="core-idea-orbit grid h-32 w-32 place-items-center rounded-full border border-gold/50">
-                  <Map className="h-12 w-12 text-gold" />
-                </div>
-              </div>
-              <h3 className="mt-8 text-center font-serif text-2xl font-semibold leading-none">Core idea</h3>
-              <p className="mt-4 text-center text-sm leading-6 text-paper/72">
-                What if UT designed the operating system for institutional media intelligence?
-              </p>
-            </div>
-
-            <div className="relative hidden items-center justify-center lg:flex">
-              <svg className="absolute inset-0 h-full w-full" viewBox="0 0 180 590" aria-hidden="true">
-                <path className="mission-beam" d="M0 295 C46 295 55 295 90 295" />
-                {workflowRows.map((_, index) => {
-                  const y = 58 + index * 62;
-                  return <path key={y} className="mission-beam" d={`M90 295 C122 295 112 ${y} 180 ${y}`} />;
-                })}
-              </svg>
-              <div className="mission-hub relative z-10 grid h-24 w-24 place-items-center rounded-full border border-gold/70 bg-ink text-gold shadow-cartouche">
-                <Globe2 className="h-10 w-10" />
-              </div>
-            </div>
-
-            <div className="relative z-10 grid content-center gap-3">
-              <div className="mb-1 flex items-center justify-between border-b border-line pb-3">
-                <div>
-                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-rust">Agent workflow</p>
-                  <h3 className="mt-2 font-serif text-3xl font-semibold leading-none">From one idea to an output system</h3>
-                </div>
-                <div className="hidden items-center gap-2 border border-line bg-card px-3 py-2 font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-muted xl:flex">
-                  <Zap className="h-4 w-4 text-rust" />
-                  Auto
-                </div>
-              </div>
-              {workflowRows.map(({ lane, output, icon: Icon }, index) => (
-                <article key={output} className="output-rail mission-card grid gap-3 border border-line bg-card p-2.5 shadow-cartouche sm:grid-cols-[132px_1fr_70px] sm:items-center">
-                  <div className="flex items-center gap-3 border-line sm:border-r sm:pr-3">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center border border-gold/60 bg-ink text-gold">
-                      <Icon className="h-[18px] w-[18px]" />
-                    </span>
-                    <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-teal">{lane}</p>
-                  </div>
-                  <h4 className="font-serif text-lg font-semibold leading-tight text-ink">{output}</h4>
-                  <span className="justify-self-start border border-rust/40 bg-rust px-2 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-paper sm:justify-self-end">
-                    0{index + 1}
-                  </span>
-                </article>
-              ))}
-            </div>
-
-            <div className="absolute bottom-4 left-4 right-4 z-10 hidden border border-line bg-paper/85 p-3 lg:block">
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">System outputs</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {missionOutputs.slice(0, 6).map((output) => (
-                  <span key={output} className="inline-flex items-center gap-1 border border-line bg-card px-2 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.06em] text-muted">
-                    <Plus className="h-3 w-3 text-rust" />
-                    {output}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+    <section id="mission" className="border-b border-line bg-ink">
+      <div className="mx-auto max-w-[1720px] px-0 py-0">
+        <h2 className="sr-only">{missionConcept.title}</h2>
+        <img
+          src="/uploads/mission-control.png"
+          alt="Mission Control media operating system: one research idea branching into essay, fact-checking, maps, video, social clips, courses, events, products, and reader feedback."
+          className="block h-auto w-full"
+        />
       </div>
     </section>
   );

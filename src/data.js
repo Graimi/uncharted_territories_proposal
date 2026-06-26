@@ -370,18 +370,6 @@ export const newIdeas = [
   },
 ];
 
-export const missionOutputs = [
-  "Long-form essay",
-  "YouTube script",
-  "Shorts package",
-  "Interactive map",
-  "Fact-check ledger",
-  "Course module",
-  "Event concept",
-  "Physical product brief",
-  "Reader feedback loop",
-];
-
 export const readingSegments = [
   { label: "Hook", width: "16%", tone: "strong", note: "Keep. High narrative pull." },
   { label: "Context", width: "22%", tone: "dense", note: "Add map before the policy detail." },
