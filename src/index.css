@@ -40,6 +40,93 @@ body {
   pointer-events: none;
 }
 
+.command-card,
+.mission-board,
+.research-card,
+.output-rail {
+  box-shadow:
+    0 26px 70px -44px rgba(35, 32, 26, 0.78),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.hero-core-card::before {
+  background:
+    radial-gradient(circle at 78% 68%, rgba(191, 143, 58, 0.35), transparent 18%),
+    linear-gradient(135deg, rgba(243, 236, 218, 0.12), transparent 48%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.compass-ring::before,
+.compass-ring::after,
+.compass-mark::before,
+.core-idea-orbit::before,
+.mission-hub::before {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  content: "";
+  inset: 12px;
+  opacity: 0.28;
+  position: absolute;
+}
+
+.mission-section {
+  background:
+    radial-gradient(circle at 47% 50%, rgba(191, 143, 58, 0.12), transparent 28%),
+    #23201a;
+}
+
+.mission-parchment {
+  background:
+    radial-gradient(circle at 55% 48%, rgba(31, 85, 96, 0.16), transparent 24%),
+    linear-gradient(90deg, rgba(35, 32, 26, 0.98) 0%, rgba(35, 32, 26, 0.98) 31%, rgba(243, 236, 218, 0.88) 31.2%, rgba(232, 221, 196, 0.92) 100%);
+}
+
+.mission-board {
+  background:
+    radial-gradient(circle at 36% 50%, rgba(31, 85, 96, 0.18), transparent 20%),
+    linear-gradient(90deg, rgba(35, 32, 26, 0.04), rgba(243, 236, 218, 0.9));
+}
+
+.core-idea-orbit {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(191, 143, 58, 0.2), transparent 36%),
+    repeating-radial-gradient(circle, rgba(191, 143, 58, 0.3) 0 1px, transparent 1px 16px);
+  position: relative;
+}
+
+.mission-hub {
+  box-shadow:
+    0 0 0 8px rgba(191, 143, 58, 0.1),
+    0 0 32px rgba(191, 143, 58, 0.48),
+    0 0 84px rgba(191, 143, 58, 0.28);
+}
+
+.mission-beam {
+  fill: none;
+  stroke: #f1c978;
+  stroke-linecap: round;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px rgba(241, 201, 120, 0.8));
+  opacity: 0.92;
+}
+
+.output-rail {
+  position: relative;
+}
+
+.output-rail::after {
+  background: #b4542a;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 11px;
+}
+
 .graph-grid {
   background-image:
     linear-gradient(rgba(243, 236, 218, 0.12) 1px, transparent 1px),

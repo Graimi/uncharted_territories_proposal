@@ -31,7 +31,6 @@ import {
   eras,
   essays,
   featuredConcepts,
-  missionAgents,
   missionConcept,
   missionOutputs,
   newIdeas,
@@ -119,7 +118,7 @@ function Hero() {
         </div>
 
         <div className="relative z-10 self-end">
-          <div className="border border-line bg-card p-4 shadow-cartouche">
+          <div className="command-card border border-line bg-card p-4 shadow-cartouche">
             <div className="grid gap-1 border-b border-line pb-4 sm:grid-cols-3">
               {[
                 ["Ship fast", "Visible MVPs in days"],
@@ -138,11 +137,11 @@ function Hero() {
                 <p className="mt-5 font-serif text-3xl leading-none text-teal">Designer Vibe-Coder</p>
                 <p className="mt-3 text-sm leading-6 text-muted">Software, visual design, and AI-native tools.</p>
               </div>
-              <div className="relative min-h-44 overflow-hidden bg-teal p-4 text-paper">
+              <div className="hero-core-card relative min-h-44 overflow-hidden bg-teal p-4 text-paper">
                 <div className="absolute inset-x-4 top-12 h-px bg-paper/20" />
                 <div className="absolute inset-x-8 top-20 h-px bg-paper/20" />
                 <div className="absolute inset-x-12 top-28 h-px bg-paper/20" />
-                <div className="absolute bottom-5 right-5 grid h-24 w-24 place-items-center border border-paper/35">
+                <div className="compass-ring absolute bottom-5 right-5 grid h-24 w-24 place-items-center border border-paper/35">
                   <Globe2 className="h-12 w-12" />
                 </div>
                 <p className="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-paper/70">Core demo</p>
@@ -579,21 +578,37 @@ function Atlas() {
 }
 
 function MissionControl() {
-  const laneClass = {
-    input: "border-gold bg-paper text-ink",
-    core: "border-rust bg-card text-ink",
-    output: "border-teal bg-teal text-paper",
-  };
+  const workflowRows = [
+    { lane: "Truth", output: "Long-form essay", icon: FileSearch },
+    { lane: "Truth", output: "Fact-check ledger", icon: CheckCircle2 },
+    { lane: "Visuals", output: "Interactive map", icon: Map },
+    { lane: "Visuals", output: "Video script", icon: Film },
+    { lane: "Growth", output: "Social clips", icon: Share2 },
+    { lane: "Education", output: "Course module", icon: Layers3 },
+    { lane: "Products", output: "Physical product brief", icon: Sparkles },
+    { lane: "Feedback", output: "Reader feedback loop", icon: MessageSquare },
+  ];
 
   return (
-    <section id="mission" className="relative overflow-hidden border-b border-line bg-ink text-paper">
+    <section id="mission" className="mission-section relative overflow-hidden border-b border-line bg-ink text-paper">
+      <div className="absolute inset-0 mission-parchment opacity-95" aria-hidden="true" />
       <div className="absolute inset-0 graph-grid opacity-20" aria-hidden="true" />
-      <div className="absolute inset-x-0 top-0 h-px bg-paper/20" aria-hidden="true" />
-      <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12 lg:py-24">
+      <div className="absolute left-0 top-0 hidden h-full w-[34%] bg-ink/96 lg:block" aria-hidden="true" />
+      <div className="absolute left-[27%] top-0 hidden h-full w-32 -skew-x-12 bg-ink/96 lg:block" aria-hidden="true" />
+      <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.54fr_1.46fr] lg:px-12 lg:py-24">
         <div className="relative z-10">
+          <div className="mb-10 flex items-center gap-4">
+            <div className="compass-mark grid h-16 w-16 place-items-center rounded-full border border-gold/70 text-gold">
+              <Sparkles className="h-7 w-7" />
+            </div>
+            <div>
+              <p className="font-sans text-[11px] font-bold uppercase tracking-[0.24em] text-paper/70">Mission Control</p>
+              <p className="mt-1 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Media Operating System</p>
+            </div>
+          </div>
           <Eyebrow className="text-gold">New flagship idea</Eyebrow>
-          <h2 className="mt-4 max-w-2xl font-serif text-5xl font-medium leading-[0.95] sm:text-7xl">
-            {missionConcept.title}
+          <h2 className="mt-4 max-w-[370px] font-serif text-[clamp(44px,5.2vw,70px)] font-medium leading-[0.95]">
+            Intelligence coordinated. Impact amplified.
           </h2>
           <p className="mt-5 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-paper/50">
             {missionConcept.role} · {missionConcept.article}
@@ -612,49 +627,72 @@ function MissionControl() {
           </div>
         </div>
 
-        <div className="relative z-10 overflow-hidden border border-paper/20 bg-paper/8 p-4 shadow-cartouche backdrop-blur">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-paper/20 pb-4">
-            <div>
-              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-gold">Agent workflow</p>
-              <h3 className="mt-2 font-serif text-3xl font-semibold leading-none">From one idea to an institution-grade output system</h3>
-            </div>
-            <div className="flex items-center gap-2 border border-paper/20 bg-ink px-3 py-2 font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-paper/70">
-              <Zap className="h-4 w-4 text-gold" />
-              Auto-orchestrated
-            </div>
-          </div>
-
-          <div className="relative grid gap-3 lg:grid-cols-3">
-            <div className="absolute left-[16.5%] right-[16.5%] top-1/2 hidden h-px bg-paper/20 lg:block" aria-hidden="true" />
-            {missionAgents.map((agent, index) => (
-              <article
-                key={agent.label}
-                className={cx(
-                  "mission-card relative z-10 min-h-40 border p-4 shadow-cartouche",
-                  laneClass[agent.lane],
-                )}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] opacity-70">{agent.label}</p>
-                  <span className="grid h-7 w-7 place-items-center border border-current/30 font-sans text-[10px] font-bold">
-                    {index + 1}
-                  </span>
+        <div className="mission-board relative z-10 overflow-hidden border border-ink/30 bg-paper/80 p-4 text-ink shadow-cartouche backdrop-blur">
+          <div className="absolute inset-0 paper-grain opacity-60" aria-hidden="true" />
+          <div className="relative z-10 grid min-h-[590px] gap-4 lg:grid-cols-[220px_180px_minmax(340px,1fr)]">
+            <div className="research-card self-center border border-gold/60 bg-ink p-4 text-paper shadow-cartouche">
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-gold">Research</p>
+              <div className="mt-7 grid place-items-center">
+                <div className="core-idea-orbit grid h-32 w-32 place-items-center rounded-full border border-gold/50">
+                  <Map className="h-12 w-12 text-gold" />
                 </div>
-                <h4 className="mt-8 font-serif text-2xl font-semibold leading-none">{agent.title}</h4>
-                <p className="mt-3 text-sm leading-6 opacity-75">{agent.detail}</p>
-              </article>
-            ))}
-          </div>
+              </div>
+              <h3 className="mt-8 text-center font-serif text-2xl font-semibold leading-none">Core idea</h3>
+              <p className="mt-4 text-center text-sm leading-6 text-paper/72">
+                What if UT designed the operating system for institutional media intelligence?
+              </p>
+            </div>
 
-          <div className="mt-4 border border-paper/20 bg-ink p-4">
-            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-paper/50">Outputs created from the same source idea</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {missionOutputs.map((output) => (
-                <span key={output} className="inline-flex items-center gap-2 border border-paper/20 bg-paper/10 px-3 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-paper/80">
-                  <Plus className="h-3.5 w-3.5 text-gold" />
-                  {output}
-                </span>
+            <div className="relative hidden items-center justify-center lg:flex">
+              <svg className="absolute inset-0 h-full w-full" viewBox="0 0 180 590" aria-hidden="true">
+                <path className="mission-beam" d="M0 295 C46 295 55 295 90 295" />
+                {workflowRows.map((_, index) => {
+                  const y = 58 + index * 62;
+                  return <path key={y} className="mission-beam" d={`M90 295 C122 295 112 ${y} 180 ${y}`} />;
+                })}
+              </svg>
+              <div className="mission-hub relative z-10 grid h-24 w-24 place-items-center rounded-full border border-gold/70 bg-ink text-gold shadow-cartouche">
+                <Globe2 className="h-10 w-10" />
+              </div>
+            </div>
+
+            <div className="relative z-10 grid content-center gap-3">
+              <div className="mb-1 flex items-center justify-between border-b border-line pb-3">
+                <div>
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-rust">Agent workflow</p>
+                  <h3 className="mt-2 font-serif text-3xl font-semibold leading-none">From one idea to an output system</h3>
+                </div>
+                <div className="hidden items-center gap-2 border border-line bg-card px-3 py-2 font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-muted xl:flex">
+                  <Zap className="h-4 w-4 text-rust" />
+                  Auto
+                </div>
+              </div>
+              {workflowRows.map(({ lane, output, icon: Icon }, index) => (
+                <article key={output} className="output-rail mission-card grid gap-3 border border-line bg-card p-2.5 shadow-cartouche sm:grid-cols-[132px_1fr_70px] sm:items-center">
+                  <div className="flex items-center gap-3 border-line sm:border-r sm:pr-3">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center border border-gold/60 bg-ink text-gold">
+                      <Icon className="h-[18px] w-[18px]" />
+                    </span>
+                    <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-teal">{lane}</p>
+                  </div>
+                  <h4 className="font-serif text-lg font-semibold leading-tight text-ink">{output}</h4>
+                  <span className="justify-self-start border border-rust/40 bg-rust px-2 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-paper sm:justify-self-end">
+                    0{index + 1}
+                  </span>
+                </article>
               ))}
+            </div>
+
+            <div className="absolute bottom-4 left-4 right-4 z-10 hidden border border-line bg-paper/85 p-3 lg:block">
+              <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">System outputs</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {missionOutputs.slice(0, 6).map((output) => (
+                  <span key={output} className="inline-flex items-center gap-1 border border-line bg-card px-2 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.06em] text-muted">
+                    <Plus className="h-3 w-3 text-rust" />
+                    {output}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
