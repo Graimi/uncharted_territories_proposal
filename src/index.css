@@ -40,6 +40,62 @@ body {
   pointer-events: none;
 }
 
+.graph-grid {
+  background-image:
+    linear-gradient(rgba(243, 236, 218, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 236, 218, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.graph-node {
+  animation: graphPulse 4.8s ease-in-out infinite;
+}
+
+.graph-node:nth-of-type(2n) {
+  animation-delay: 0.8s;
+}
+
+.graph-node:nth-of-type(3n) {
+  animation-delay: 1.4s;
+}
+
+.scanline {
+  animation: scanline 4.4s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(180, 84, 42, 0.38), transparent);
+  height: 1px;
+  left: 20px;
+  pointer-events: none;
+  position: absolute;
+  right: 20px;
+  top: 142px;
+  z-index: 10;
+}
+
+@keyframes graphPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.045);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    opacity: 0;
+    transform: translateY(-34px);
+  }
+  45%,
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(230px);
+  }
+}
+
 #ut-map-host svg {
   display: block;
   height: 100%;

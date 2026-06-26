@@ -13,35 +13,10 @@ export const themes = {
     landStroke: "#c3b48f",
     ocean: "#eee6d0",
     label: "#3a3326",
-    ice: "#f8f4e8",
-    shelf: "#d7c69f",
   },
 };
 
 export const eras = [
-  {
-    id: "iceage",
-    eyebrow: "c. 20,000 BCE",
-    name: "The Last Glacial Maximum",
-    short: "Ice Age",
-    blurb:
-      "A paleo-conceptual view: sea level is roughly 120 meters lower, continental shelves emerge, and ice sheets cover the north. This is not modern borders recolored; it is a geographic layer for explaining change.",
-    ice: true,
-    stats: [
-      { value: "-120 m", label: "Sea level" },
-      { value: "3 M", label: "Humans alive" },
-    ],
-    landBridges: [
-      { a: [150, 300], b: [120, 300], label: "Beringia" },
-      { a: "gb", b: "fr", label: "Doggerland" },
-      { a: "id", b: "au", label: "Sahul" },
-    ],
-    article: {
-      tag: "Geography",
-      title: "Why Warm Countries Are Poorer",
-      url: "https://unchartedterritories.tomaspueyo.com/p/mountains",
-    },
-  },
   {
     id: "antiquity",
     eyebrow: "c. 500 BCE",
@@ -243,58 +218,169 @@ export const countryNames = {
   cy: "Cyprus",
 };
 
-export const selectedTools = [
+export const archiveArticles = [
   {
-    title: "Living UT Atlas",
-    role: "Product + Visual Design",
-    why:
-      "A cartographic product surface that matches UT’s identity and shows how articles can become interactive exploration tools.",
-    output: "Temporal map layers, article links, search, and expandable datasets for future topic or geography coverage.",
-    effort: "Already prototyped",
+    title: "The Future of Petrostates After Oil",
+    dek: "Petrostates, failed states, and what happens after oil money breaks.",
+    date: "Mar 5",
+    topic: "Energy & Geopolitics",
   },
   {
-    title: "Live Fact-checker",
-    role: "Product",
-    why:
-      "Directly maps to the role description: systems that help AI improve truth-seeking instead of generating slop.",
-    output: "Paste an article excerpt; get claims, evidence, source links, confidence, and unresolved questions.",
-    effort: "MVP in 2-4 days",
+    title: "Iran: The Day After",
+    dek: "What could happen in the coming days and weeks.",
+    date: "Mar 3",
+    topic: "Geopolitics",
   },
   {
-    title: "Article to Video Script",
-    role: "Growth",
-    why:
-      "Turns UT’s long-form thinking into a distribution machine for YouTube, shorts, and social-native formats.",
-    output: "A UT URL becomes a long-form script, short hooks, scene beats, voiceover notes, and visual prompts.",
-    effort: "MVP in 1-2 days",
+    title: "Saudi Arabia’s Ordeal",
+    dek: "Between the Sandworm and the Quicksand.",
+    date: "Feb 25",
+    topic: "GeoHistory",
   },
   {
-    title: "Personalized Briefing",
-    role: "Product",
-    why:
-      "A concrete way to make the UT archive more useful: readers choose interests and receive tailored context.",
-    output: "A weekly briefing with relevant articles, maps, summaries, and why each topic matters now.",
-    effort: "MVP in 3-5 days",
+    title: "Can We Build AI in Space?",
+    dek: "Radiation, cooling, shipping costs, and space datacenters.",
+    date: "Feb 18",
+    topic: "AI + Space",
   },
+  {
+    title: "The Resource Cliff",
+    dek: "What happens when countries run out of resources.",
+    date: "Feb 10",
+    topic: "Energy",
+  },
+  {
+    title: "Dubai",
+    dek: "The Anti-Petrostate.",
+    date: "Feb 6",
+    topic: "Cities",
+  },
+  {
+    title: "Peak Oil Is Coming",
+    dek: "How hybrids, infrastructure, and adoption curves interact.",
+    date: "Feb 3",
+    topic: "Energy",
+  },
+  {
+    title: "AI in 2026",
+    dek: "Bubble, winners, AGI, jobs, and the rate of AI progress.",
+    date: "Jan 24",
+    topic: "AI",
+  },
+];
+
+export const featuredConcepts = [
+  {
+    title: "Reading Time Optimizer",
+    role: "Product + Editorial UX",
+    article: "The Future of Petrostates After Oil",
+    problem:
+      "Long UT essays are a strength, but long-form readers still need rhythm: where to pause, where to visualize, and where the argument risks losing momentum.",
+    demo:
+      "A visual scan of a petrostate essay marks friction points, likely drop-off zones, and opportunities for maps, timelines, or comparison graphics.",
+    build:
+      "Parse article structure, estimate cognitive load per section, flag dense passages, and generate editorial interventions with before/after previews.",
+    impact: "Keeps deep essays deep while making them easier to finish, share, and convert into derivative formats.",
+  },
+  {
+    title: "UT Content Graph",
+    role: "Systems + Data Viz",
+    article: "AI in 2026 + Can We Build AI in Space? + Peak Oil Is Coming",
+    problem:
+      "UT’s archive is not a list of posts. It is a network of geography, incentives, technology, energy, and history.",
+    demo:
+      "A living graph connects articles by concept, region, causal force, and audience intent, turning the archive into a discovery engine.",
+    build:
+      "Embed articles, extract entities and concepts, cluster themes, and render a network that can open briefings, maps, scripts, or fact-checks.",
+    impact: "Shows system thinking, gives readers a new way to explore UT, and creates a foundation for personalization.",
+  },
+];
+
+export const proposalGroups = [
+  {
+    type: "Product tools",
+    items: [
+      "Live fact-checker",
+      "Personalized briefing",
+      "UT semantic article search",
+      "Topic market demo",
+      "Interactive tools inside articles",
+      "Reading Time Optimizer",
+      "UT Content Graph",
+    ],
+  },
+  {
+    type: "Growth machines",
+    items: [
+      "Article to video script",
+      "Article to social posts generator",
+      "Newsletter to podcast script",
+      "Cross-posting engine",
+      "Subscriber growth simulator",
+      "Synthetic creator demo",
+    ],
+  },
+  {
+    type: "Visual and brand systems",
+    items: [
+      "Living UT Atlas",
+      "Brand consistency checker",
+      "Geopolitical impact map",
+      "Animated explainer cards",
+      "Physical product concept builder",
+      "Visual brief generator for illustrators",
+    ],
+  },
+];
+
+export const newIdeas = [
+  {
+    title: "Causal Map Builder",
+    pitch:
+      "Turn an essay into an explorable cause-and-effect map: oil revenue, state capacity, geography, demographics, incentives, and downstream outcomes.",
+  },
+  {
+    title: "Counterfactual Article Lab",
+    pitch:
+      "Let readers change one assumption in a UT essay and watch the argument update: oil price, birth rate, shipping cost, AI compute price, or migration flow.",
+  },
+  {
+    title: "Visual Claim Ledger",
+    pitch:
+      "A beautiful public ledger of the strongest claims in an article, each linked to evidence, uncertainty, opposing views, and update history.",
+  },
+  {
+    title: "Worldview Simulator",
+    pitch:
+      "A compact interactive model where readers tune forces like energy, AI, geography, fertility, and institutions to see which futures become plausible.",
+  },
+];
+
+export const readingSegments = [
+  { label: "Hook", width: "16%", tone: "strong", note: "Keep. High narrative pull." },
+  { label: "Context", width: "22%", tone: "dense", note: "Add map before the policy detail." },
+  { label: "Mechanism", width: "26%", tone: "risk", note: "Likely drop-off. Split and visualize causal chain." },
+  { label: "Scenario", width: "20%", tone: "strong", note: "Good place for interactive slider." },
+  { label: "Action", width: "16%", tone: "dense", note: "Convert to checklist and share card." },
 ];
 
 export const essays = [
   {
-    tag: "Geography",
-    title: "Why Warm Countries Are Poorer",
-    desc: "A strong source article for testing geography, development, and visual explanation workflows.",
-    url: "https://unchartedterritories.tomaspueyo.com/p/mountains",
+    tag: "Energy & Geopolitics",
+    title: "The Future of Petrostates After Oil",
+    desc: "A strong test case for reading optimization, causal maps, and geopolitical impact visuals.",
+    url: "https://unchartedterritories.tomaspueyo.com/archive?sort=new",
   },
   {
-    tag: "Cartography",
-    title: "Maps Distort How We See the World",
-    desc: "Useful for the atlas, visual identity, and product tools that make map bias visible.",
-    url: "https://unchartedterritories.tomaspueyo.com/p/maps-distort-how-we-see-the-world",
+    tag: "AI + Space",
+    title: "Can We Build AI in Space?",
+    desc: "Useful for video-script generation, visual explainers, and the content graph.",
+    url: "https://unchartedterritories.tomaspueyo.com/archive?sort=new",
   },
   {
-    tag: "History",
-    title: "How Did Islam Spread So Fast?",
-    desc: "Good material for video-script generation, timeline interaction, and claim extraction.",
-    url: "https://unchartedterritories.tomaspueyo.com/p/how-did-islam-spread-so-fast",
+    tag: "AI",
+    title: "AI in 2026",
+    desc: "Good material for fact-checking, prediction markets, and personalized briefings.",
+    url: "https://unchartedterritories.tomaspueyo.com/archive?sort=new",
   },
 ];

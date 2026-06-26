@@ -8,21 +8,37 @@ import {
   FileSearch,
   Film,
   Gauge,
+  GitBranch,
   Globe2,
   Layers3,
+  Lightbulb,
   Map,
+  MessageSquare,
   MousePointer2,
   Network,
   Pause,
   Play,
+  Plus,
   Search,
   Share2,
   Sparkles,
+  Star,
   Wand2,
+  Zap,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import worldMap from "../world-map.min.svg?raw";
-import { countryNames, eras, essays, selectedTools, themes } from "./data";
+import {
+  archiveArticles,
+  countryNames,
+  eras,
+  essays,
+  featuredConcepts,
+  newIdeas,
+  proposalGroups,
+  readingSegments,
+  themes,
+} from "./data";
 
 const theme = themes.editorial;
 
@@ -50,7 +66,8 @@ function Nav() {
           {[
             ["Fit", "#fit"],
             ["Atlas", "#atlas"],
-            ["Demos", "#demos"],
+            ["Featured", "#featured"],
+            ["Ideas", "#ideas"],
             ["Roadmap", "#roadmap"],
           ].map(([label, href]) => (
             <a
@@ -62,11 +79,11 @@ function Nav() {
             </a>
           ))}
           <a
-            href="#demos"
+            href="#featured"
             className="inline-flex h-10 items-center gap-2 rounded-sm bg-teal px-4 font-sans text-[12px] font-bold uppercase tracking-[0.08em] text-paper no-underline transition hover:bg-rust"
           >
             <Sparkles className="h-4 w-4" />
-            Proposal
+            Star ideas
           </a>
         </div>
       </div>
@@ -93,9 +110,9 @@ function Hero() {
               <Map className="h-4 w-4" />
               View living atlas
             </a>
-            <a href="#demos" className="btn-secondary">
+            <a href="#featured" className="btn-secondary">
               <Layers3 className="h-4 w-4" />
-              Explore selected tools
+              Explore star concepts
             </a>
           </div>
         </div>
@@ -121,12 +138,14 @@ function Hero() {
                 <p className="mt-3 text-sm leading-6 text-muted">Software, visual design, and AI-native tools.</p>
               </div>
               <div className="relative min-h-44 overflow-hidden bg-teal p-4 text-paper">
-                <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full border border-paper/25" />
+                <div className="absolute inset-x-4 top-12 h-px bg-paper/20" />
+                <div className="absolute inset-x-8 top-20 h-px bg-paper/20" />
+                <div className="absolute inset-x-12 top-28 h-px bg-paper/20" />
                 <div className="absolute bottom-5 right-5 grid h-24 w-24 place-items-center border border-paper/35">
                   <Globe2 className="h-12 w-12" />
                 </div>
                 <p className="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-paper/70">Core demo</p>
-                <p className="mt-5 max-w-[12rem] font-serif text-3xl leading-none">A living atlas for UT ideas</p>
+                <p className="mt-5 max-w-[12rem] font-serif text-3xl leading-none">A lab for UT ideas</p>
               </div>
             </div>
           </div>
@@ -182,7 +201,7 @@ function Atlas() {
   const [eraIndex, setEraIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [search, setSearch] = useState("");
-  const [searchHint, setSearchHint] = useState("6 eras · interactive SVG map");
+  const [searchHint, setSearchHint] = useState("5 eras · interactive SVG map");
   const [mapReady, setMapReady] = useState(false);
   const hostRef = useRef(null);
   const svgRef = useRef(null);
@@ -276,50 +295,16 @@ function Atlas() {
     return label;
   }
 
-  function drawPaleoLayer(svg, overlay) {
-    const viewBox = svg.viewBox.baseVal;
-    const shelf = (cx, cy, rx, ry, rotation = 0) => {
-      const shape = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-      shape.setAttribute("cx", cx);
-      shape.setAttribute("cy", cy);
-      shape.setAttribute("rx", rx);
-      shape.setAttribute("ry", ry);
-      shape.setAttribute("fill", theme.shelf);
-      shape.setAttribute("opacity", "0.62");
-      if (rotation) shape.setAttribute("transform", `rotate(${rotation} ${cx} ${cy})`);
-      overlay.appendChild(shape);
-    };
-    const ice = (cx, cy, rx, ry, opacity = 0.58) => {
-      const shape = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
-      shape.setAttribute("cx", cx);
-      shape.setAttribute("cy", cy);
-      shape.setAttribute("rx", rx);
-      shape.setAttribute("ry", ry);
-      shape.setAttribute("fill", "#ffffff");
-      shape.setAttribute("opacity", opacity);
-      overlay.appendChild(shape);
-    };
-
-    shelf(viewBox.x + viewBox.width * 0.16, viewBox.y + viewBox.height * 0.31, viewBox.width * 0.08, viewBox.height * 0.04, -8);
-    shelf(viewBox.x + viewBox.width * 0.49, viewBox.y + viewBox.height * 0.42, viewBox.width * 0.05, viewBox.height * 0.035, 8);
-    shelf(viewBox.x + viewBox.width * 0.73, viewBox.y + viewBox.height * 0.68, viewBox.width * 0.13, viewBox.height * 0.06, 12);
-    shelf(viewBox.x + viewBox.width * 0.81, viewBox.y + viewBox.height * 0.74, viewBox.width * 0.13, viewBox.height * 0.08, -12);
-
-    ice(viewBox.x + viewBox.width * 0.21, viewBox.y + viewBox.height * 0.12, viewBox.width * 0.23, viewBox.height * 0.15);
-    ice(viewBox.x + viewBox.width * 0.61, viewBox.y + viewBox.height * 0.1, viewBox.width * 0.3, viewBox.height * 0.13);
-    ice(viewBox.x + viewBox.width * 0.52, viewBox.y + viewBox.height * 1.03, viewBox.width * 0.64, viewBox.height * 0.13, 0.5);
-  }
-
   function paintEra(index) {
     const svg = svgRef.current;
     const overlay = overlayRef.current;
     if (!svg || !overlay) return;
     const era = eras[index];
     const ocean = svg.querySelector("#ut-ocean");
-    if (ocean) ocean.setAttribute("fill", era.ice ? "#e6ddc6" : theme.ocean);
+    if (ocean) ocean.setAttribute("fill", theme.ocean);
 
     const isoColor = {};
-    if (!era.modern && !era.ice && era.regions) {
+    if (!era.modern && era.regions) {
       Object.entries(era.regions).forEach(([color, isos]) => {
         isos.forEach((iso) => {
           isoColor[iso] = color;
@@ -329,10 +314,7 @@ function Atlas() {
 
     countriesRef.current.forEach((el) => {
       const color = isoColor[el.id];
-      if (era.ice) {
-        el.setAttribute("fill", theme.land);
-        el.style.opacity = "0.36";
-      } else if (color) {
+      if (color) {
         el.setAttribute("fill", color);
         el.style.opacity = "1";
       } else {
@@ -344,9 +326,6 @@ function Atlas() {
     });
 
     overlay.innerHTML = "";
-    if (era.ice) {
-      drawPaleoLayer(svg, overlay);
-    }
 
     if (era.routes) {
       era.routes.forEach((route) => {
@@ -376,25 +355,6 @@ function Atlas() {
       });
     }
 
-    if (era.landBridges) {
-      era.landBridges.forEach((bridge) => {
-        const a = point(bridge.a);
-        const b = point(bridge.b);
-        if (!a || !b) return;
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", a.x);
-        line.setAttribute("y1", a.y);
-        line.setAttribute("x2", b.x);
-        line.setAttribute("y2", b.y);
-        line.setAttribute("stroke", theme.rust);
-        line.setAttribute("stroke-width", "1.35");
-        line.setAttribute("stroke-dasharray", "1.5 1.8");
-        line.setAttribute("opacity", "0.9");
-        overlay.appendChild(line);
-        addLabel((a.x + b.x) / 2, (a.y + b.y) / 2 - 3, bridge.label, theme.rust, 8.6, "700");
-      });
-    }
-
     if (era.labels) {
       era.labels.forEach((item) => {
         const c = centroidsRef.current[item.iso];
@@ -409,7 +369,7 @@ function Atlas() {
     paintEra(eraIndex);
     const q = value.trim().toLowerCase();
     if (!q) {
-      if (announce) setSearchHint("6 eras · interactive SVG map");
+      if (announce) setSearchHint("5 eras · interactive SVG map");
       return;
     }
 
@@ -533,7 +493,7 @@ function Atlas() {
                 <ExternalLink className="h-4 w-4 shrink-0" />
                 <span>
                   <span className="block font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-rust">
-                    Ensayo · {currentEra.article.tag}
+                    Essay · {currentEra.article.tag}
                   </span>
                   <span className="mt-1 block font-serif text-[15px] font-semibold leading-tight">{currentEra.article.title}</span>
                 </span>
@@ -544,7 +504,7 @@ function Atlas() {
               <div className="absolute right-4 top-4 z-10 flex gap-2">
                 <button
                   type="button"
-                  aria-label="Era anterior"
+                  aria-label="Previous era"
                   className="icon-btn"
                   onClick={() => {
                     setPlaying(false);
@@ -555,11 +515,11 @@ function Atlas() {
                 </button>
                 <button type="button" className="btn-primary h-10 px-4" onClick={() => setPlaying((value) => !value)}>
                   {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  {playing ? "Pausa" : "Play"}
+                  {playing ? "Pause" : "Play"}
                 </button>
                 <button
                   type="button"
-                  aria-label="Era siguiente"
+                  aria-label="Next era"
                   className="icon-btn"
                   onClick={() => {
                     setPlaying(false);
@@ -617,49 +577,305 @@ function Atlas() {
   );
 }
 
-function ProposalDemos() {
-  const icons = [Map, FileSearch, Film, Sparkles];
+function ReadingOptimizerDemo() {
+  const toneClass = {
+    strong: "bg-teal text-paper",
+    dense: "bg-gold text-ink",
+    risk: "bg-rust text-paper",
+  };
 
   return (
-    <section id="demos" className="border-b border-line bg-paper2">
-      <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-18">
+    <div className="relative overflow-hidden border border-line bg-card p-5 shadow-cartouche">
+      <div className="scanline" aria-hidden="true" />
+      <div className="absolute inset-x-5 top-20 h-px bg-line" />
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">Visual trial</p>
+          <h3 className="mt-2 font-serif text-3xl font-semibold leading-none text-ink">The Future of Petrostates After Oil</h3>
+        </div>
+        <div className="border border-line bg-paper px-3 py-2 text-right">
+          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-muted">Predicted completion</p>
+          <p className="font-serif text-3xl font-semibold text-teal">+18%</p>
+        </div>
+      </div>
+
+      <div className="mt-10 flex h-16 overflow-hidden border border-line bg-paper">
+        {readingSegments.map((segment) => (
+          <div
+            key={segment.label}
+            className={cx("group relative grid place-items-center border-r border-paper/50 font-sans text-[10px] font-bold uppercase tracking-[0.08em]", toneClass[segment.tone])}
+            style={{ width: segment.width }}
+          >
+            {segment.label}
+            <span className="absolute left-1/2 top-full z-10 mt-2 hidden w-44 -translate-x-1/2 border border-line bg-card p-2 text-left font-serif text-sm normal-case leading-5 tracking-normal text-ink group-hover:block">
+              {segment.note}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 grid gap-px border border-line bg-line sm:grid-cols-3">
+        {[
+          ["Cut", "Split the mechanism section into two screens and move the core causal claim up."],
+          ["Add visual", "Insert a map comparing oil rents, population pressure, and state capacity."],
+          ["Repurpose", "Turn the scenario section into a short video script and a shareable card."],
+        ].map(([label, body]) => (
+          <div key={label} className="bg-paper p-4">
+            <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">{label}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ContentGraphDemo() {
+  const nodes = [
+    { label: "AI in 2026", x: "50%", y: "17%", size: "h-24 w-24", kind: "article" },
+    { label: "Can We Build AI in Space?", x: "74%", y: "42%", size: "h-28 w-28", kind: "article" },
+    { label: "Peak Oil Is Coming", x: "28%", y: "44%", size: "h-24 w-24", kind: "article" },
+    { label: "Energy", x: "45%", y: "62%", size: "h-16 w-16", kind: "topic" },
+    { label: "Compute", x: "63%", y: "64%", size: "h-16 w-16", kind: "topic" },
+    { label: "Geography", x: "37%", y: "78%", size: "h-16 w-16", kind: "topic" },
+  ];
+
+  return (
+    <div className="relative min-h-[430px] overflow-hidden border border-line bg-teal p-5 text-paper shadow-cartouche">
+      <div className="absolute inset-0 graph-grid opacity-40" />
+      <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
+        <line x1="50%" y1="17%" x2="74%" y2="42%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+        <line x1="50%" y1="17%" x2="28%" y2="44%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+        <line x1="74%" y1="42%" x2="63%" y2="64%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+        <line x1="28%" y1="44%" x2="45%" y2="62%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+        <line x1="45%" y1="62%" x2="37%" y2="78%" stroke="#f3ecda" strokeOpacity="0.35" strokeDasharray="5 6" />
+        <line x1="63%" y1="64%" x2="37%" y2="78%" stroke="#f3ecda" strokeOpacity="0.25" />
+      </svg>
+      <div className="relative z-10">
+        <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-paper/70">Archive system map</p>
+        <h3 className="mt-2 max-w-md font-serif text-3xl font-semibold leading-none">A discovery engine for UT’s hidden structure</h3>
+      </div>
+      {nodes.map((node) => (
+        <div
+          key={node.label}
+          className={cx(
+            "graph-node absolute z-10 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border text-center font-sans text-[10px] font-bold uppercase leading-4 tracking-[0.08em] shadow-cartouche",
+            node.size,
+            node.kind === "article" ? "border-paper/60 bg-paper text-ink" : "border-paper/40 bg-teal text-paper",
+          )}
+          style={{ left: node.x, top: node.y }}
+        >
+          {node.label}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FeaturedConcepts() {
+  return (
+    <section id="featured" className="border-b border-line bg-paper2">
+      <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <Eyebrow>Selected tools</Eyebrow>
-            <h2 className="mt-4 max-w-3xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
-              Four tools selected from the role brief, not a grab bag of ideas.
+            <Eyebrow>Star concepts</Eyebrow>
+            <h2 className="mt-4 max-w-4xl font-serif text-4xl font-medium leading-tight text-ink sm:text-6xl">
+              Two proposals worth making spectacular first.
             </h2>
           </div>
-          <a href="#roadmap" className="btn-secondary">
-            View roadmap
+          <a href="#ideas" className="btn-secondary">
+            Full idea library
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 
-        <div className="mt-9 grid gap-px border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
-          {selectedTools.map((proposal, index) => {
-            const Icon = icons[index] || Factory;
-            return (
-              <article key={proposal.title} className="group bg-card p-6 transition hover:bg-paper">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="grid h-11 w-11 place-items-center border border-line bg-paper2 text-teal transition group-hover:border-rust group-hover:text-rust">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">Selected</p>
+        <div className="mt-10 grid gap-5 xl:grid-cols-2">
+          {featuredConcepts.map((concept, index) => (
+            <article key={concept.title} className="border border-line bg-card p-5">
+              <div className="flex items-start gap-3">
+                <div className="grid h-12 w-12 shrink-0 place-items-center border border-rust bg-rust text-paper">
+                  <Star className="h-5 w-5 fill-current" />
                 </div>
-                <p className="mt-6 font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-rust">{proposal.role}</p>
-                <h3 className="mt-2 font-serif text-3xl font-semibold leading-none text-ink">{proposal.title}</h3>
-                <p className="mt-4 text-[15px] leading-7 text-muted">{proposal.fit}</p>
-                <div className="mt-6 border-t border-line pt-5">
-                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-muted">Demo output</p>
-                  <p className="mt-2 font-serif text-lg leading-6 text-ink">{proposal.output}</p>
-                  <p className="mt-4 inline-flex border border-line bg-paper px-2 py-1 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-teal">
-                    {proposal.effort}
+                <div>
+                  <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">{concept.role}</p>
+                  <h3 className="mt-2 font-serif text-4xl font-semibold leading-none text-ink">{concept.title}</h3>
+                  <p className="mt-3 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-muted">
+                    Example article: {concept.article}
                   </p>
                 </div>
+              </div>
+              <div className="mt-6 grid gap-px border border-line bg-line">
+                {[
+                  ["Problem", concept.problem],
+                  ["Demo", concept.demo],
+                  ["Build", concept.build],
+                  ["Impact", concept.impact],
+                ].map(([label, body]) => (
+                  <div key={label} className="grid gap-3 bg-paper p-4 sm:grid-cols-[96px_1fr]">
+                    <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">{label}</p>
+                    <p className="text-[15px] leading-7 text-muted">{body}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5">{index === 0 ? <ReadingOptimizerDemo /> : <ContentGraphDemo />}</div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProposalLibrary() {
+  const iconMap = [FileSearch, Film, Map];
+  const starred = new Set(["Reading Time Optimizer", "UT Content Graph"]);
+
+  return (
+    <section id="ideas" className="border-b border-line bg-paper">
+      <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-18">
+        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+          <div>
+            <Eyebrow>Complete proposal map</Eyebrow>
+            <h2 className="mt-4 font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+              All candidate tools, grouped by what they prove.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-muted">
+              The starred ideas are the ones I would lead with because they combine product thinking, visual design,
+              systems thinking, and a concrete UT article workflow.
+            </p>
+          </div>
+          <div className="grid gap-px border border-line bg-line lg:grid-cols-3">
+            {proposalGroups.map((group, index) => {
+              const Icon = iconMap[index] || Factory;
+              return (
+                <article key={group.type} className="bg-card p-5">
+                  <Icon className="h-6 w-6 text-teal" />
+                  <h3 className="mt-5 font-serif text-3xl font-semibold leading-none text-ink">{group.type}</h3>
+                  <ul className="mt-6 space-y-3">
+                    {group.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-[15px] leading-6 text-muted">
+                        {starred.has(item) ? (
+                          <Star className="mt-1 h-4 w-4 shrink-0 fill-rust text-rust" />
+                        ) : (
+                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-teal" />
+                        )}
+                        <span className={starred.has(item) ? "font-semibold text-ink" : ""}>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ArchiveSource() {
+  return (
+    <section className="border-b border-line bg-paper2">
+      <div className="mx-auto max-w-[1440px] px-5 py-12 sm:px-8 lg:px-12">
+        <div className="flex flex-wrap items-center justify-between gap-5">
+          <div>
+            <Eyebrow>Archive context</Eyebrow>
+            <h2 className="mt-3 font-serif text-4xl font-medium text-ink">Recent UT articles used as raw material.</h2>
+          </div>
+          <a href="https://unchartedterritories.tomaspueyo.com/archive?sort=new" target="_blank" rel="noreferrer" className="btn-secondary">
+            Open archive
+            <ExternalLink className="h-4 w-4" />
+          </a>
+        </div>
+        <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line md:grid-cols-2 xl:grid-cols-4">
+          {archiveArticles.map((article) => (
+            <article key={article.title} className="group bg-card p-5 transition hover:bg-paper">
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">{article.topic}</p>
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-muted">{article.date}</p>
+              </div>
+              <h3 className="mt-5 font-serif text-2xl font-semibold leading-tight text-ink">{article.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted">{article.dek}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NewIdeas() {
+  return (
+    <section className="border-b border-line bg-ink text-paper">
+      <div className="mx-auto max-w-[1440px] px-5 py-14 sm:px-8 lg:px-12 lg:py-20">
+        <div className="grid gap-8 lg:grid-cols-[0.65fr_1.35fr]">
+          <div>
+            <Eyebrow className="text-gold">Bigger swings</Eyebrow>
+            <h2 className="mt-4 font-serif text-4xl font-medium leading-tight sm:text-5xl">
+              Extra ideas that could feel genuinely new.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-paper/72">
+              These are not the first MVPs I would build, but they are more memorable. They show how UT could turn
+              essays into interactive models and public truth infrastructure.
+            </p>
+          </div>
+          <div className="grid gap-px border border-paper/25 bg-paper/25 md:grid-cols-2">
+            {newIdeas.map((idea, index) => (
+              <article key={idea.title} className="relative overflow-hidden bg-ink p-6">
+                <div className="absolute right-5 top-5 font-serif text-6xl text-paper/10">0{index + 1}</div>
+                <Lightbulb className="h-6 w-6 text-gold" />
+                <h3 className="mt-8 max-w-sm font-serif text-3xl font-semibold leading-none">{idea.title}</h3>
+                <p className="mt-4 text-[15px] leading-7 text-paper/72">{idea.pitch}</p>
               </article>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeedbackSection() {
+  return (
+    <section className="border-b border-line bg-paper">
+      <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-14 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12 lg:py-18">
+        <div>
+          <Eyebrow>Feedback loop</Eyebrow>
+          <h2 className="mt-4 max-w-xl font-serif text-4xl font-medium leading-tight text-ink sm:text-5xl">
+            A proposal page that can learn what UT actually likes.
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-muted">
+            In production this would save reactions, priorities, objections, and new ideas. For the proposal, the UI
+            shows the intent: make selection collaborative instead of guessing in private.
+          </p>
+        </div>
+        <div className="border border-line bg-card p-5 shadow-cartouche">
+          <div className="grid gap-px border border-line bg-line sm:grid-cols-3">
+            {[
+              ["Most exciting", "UT Content Graph"],
+              ["Fastest MVP", "Reading Time Optimizer"],
+              ["Most on-brief", "Live Fact-checker"],
+            ].map(([label, value]) => (
+              <div key={label} className="bg-paper p-4">
+                <p className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-rust">{label}</p>
+                <p className="mt-3 font-serif text-xl font-semibold leading-tight text-ink">{value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 grid gap-4">
+            <label className="block">
+              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">What do you like?</span>
+              <textarea className="mt-2 h-24 w-full resize-none border border-line bg-paper p-3 font-serif text-base text-ink outline-none focus:border-rust" defaultValue="The graph idea feels closest to UT's archive and worldview." />
+            </label>
+            <label className="block">
+              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-muted">What should be cut?</span>
+              <textarea className="mt-2 h-20 w-full resize-none border border-line bg-paper p-3 font-serif text-base text-ink outline-none focus:border-rust" defaultValue="Anything that feels like generic AI tooling instead of UT-native product." />
+            </label>
+            <button type="button" className="btn-primary w-full">
+              <MessageSquare className="h-4 w-4" />
+              Mock submit feedback
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -778,7 +994,11 @@ export default function App() {
       <Hero />
       <FitSection />
       <Atlas />
-      <ProposalDemos />
+      <FeaturedConcepts />
+      <ProposalLibrary />
+      <ArchiveSource />
+      <NewIdeas />
+      <FeedbackSection />
       <Roadmap />
       <Essays />
       <Footer />
