@@ -22,6 +22,7 @@ import {
   Wand2,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import worldMap from "../world-map.min.svg?raw";
 import ScrollStage from "./ScrollStage";
 import {
@@ -1024,6 +1025,7 @@ export default function App() {
       <Roadmap />
       <Essays />
       <Footer />
+      <Analytics />
     </div>
   );
 }
